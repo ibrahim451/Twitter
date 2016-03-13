@@ -10,13 +10,20 @@ import UIKit
 
 class TweetsViewController: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     var tweets: [Tweet]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120 
+        
         TwitterClient.sharedInstance.homeTimeLine({ (tweets: [Tweet]) -> () in
-            self.tweets = tweets 
+            self.tweets = tweets
             for tweet in tweets {
                 print(tweet.text)
             }
@@ -32,6 +39,9 @@ class TweetsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onLogoutButton(sender: AnyObject) {
+        TwitterClient.sharedInstance.logout()
+    }
 
     /*
     // MARK: - Navigation
